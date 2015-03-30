@@ -253,3 +253,7 @@ void DOM_Tree::destruir(Node *p)
 				delete p;
 	}
 }
+
+void DOM_Tree::convertirEnArbol(strin h){
+
+}

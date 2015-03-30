@@ -16,7 +16,7 @@ class DOM_Tree
 		Node *raiz;
 		Node *retornarCopia(Node *p);
 		void destruir(Node *p);
-		void ConvertirEnArbol();
+		void convertirEnArbol();
 	public:
 		DOM_Tree();
 		DOM_Tree(Element r, list<DOM_Tree> hijos);
