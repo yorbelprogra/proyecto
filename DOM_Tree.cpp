@@ -255,5 +255,5 @@ void DOM_Tree::destruir(Node *p)
 }
 
 void DOM_Tree::convertirEnArbol(strin h){
-
+	Node *p;
 }
