@@ -4,40 +4,42 @@
  *  Created on: marzo 2015
  *      Author: yorbel y samuel
  */
+ 
 #include "Element.h"
+
 Element::Element(const Element &fuente)
 {
-	tagName=fuente.getTagName();
-	attrList=fuente.getAttrList();
-	innerHTML=fuente.getInnerHTML();
+	TagName=fuente.tagName();
+	AttrList=fuente.attrList();
+	InnerHTML=fuente.innerHTML();
 }
-string Element::getTagName()const
+string Element::tagName()const
 {
-	return(tagName);
+	return(TagName);
 }
-list<string> Element::getAttrList()const
+list<string> Element::attrList()const
 {
-	return(attrList);
+	return(AttrList);
 }
-string Element::getInnerHTML()const
+string Element::innerHTML()const
 {
-	return(innerHTML);
+	return(InnerHTML);
 }
 void Element::setTagName(string tagName_)
 {
-	tagName=tagName_;
+	this->TagName=tagName_;
 }
 void Element::setAttrList(list<string> attrList_)
 {
-	attrList=attrList_;
+	this->AttrList=attrList_;
 }
 void Element::setInnerHTML(string innerHTML_)
 {
-	innerHTML=innerHTML_;
+	this->InnerHTML=innerHTML_;
 }
 void Element::operator=(const Element &fuente)
 {
-	tagName=fuente.getTagName();
-	attrList=fuente.getAttrList();
-	innerHTML=fuente.getInnerHTML();
+	TagName=fuente.tagName();
+	AttrList=fuente.attrList();
+	InnerHTML=fuente.innerHTML();
 }

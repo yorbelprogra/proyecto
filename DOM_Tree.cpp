@@ -18,12 +18,12 @@ DOM_Tree::DOM_Tree(Element r, list<DOM_Tree> hijos)
 		Node *aux;
 		raiz->setFirstChild(retornarCopia(hijos.front().raiz));
 		hijos.pop_front();
-		aux=raiz->getFirstChild();
+		aux=raiz->firstChild();
 		while(!hijos.empty())
 		{
 			aux->setNextSibling( retornarCopia(hijos.front().raiz) );
 			hijos.pop_front();
-			aux=aux->getNextSibling();
+			aux=aux->nextSibling();
 		}
 	
 	}
@@ -43,9 +43,9 @@ Node* DOM_Tree::retornarCopia(Node *p) const
 	else
 	{
 		Node *nuevo = new Node;
-		nuevo->setElement( p->getElement());
-		nuevo->setFirstChild(retornarCopia(p->getFirstChild()));
-		nuevo->setNextSibling(retornarCopia(p->getNextSibling()));
+		nuevo->setElement( p->element());
+		nuevo->setFirstChild(retornarCopia(p->firstChild()));
+		nuevo->setNextSibling(retornarCopia(p->nextSibling()));
 		return(nuevo);
  	}
 	
@@ -56,15 +56,15 @@ DOM_Tree DOM_Tree::childNode(int p)
 	int posicion;
 	Node *aux;
 	posicion =1;
-	aux=this->raiz->getFirstChild();
+	aux=this->raiz->firstChild();
 	while(aux!=NULL && posicion<p)
 	{
-		aux=aux->getNextSibling();
-		posicion++:
+		aux=aux->nextSibling();
+		posicion++;
 	}
 	if(posicion==p && aux!=NULL)
 	{
-		Node *nuevo = new(aux->getElement(),aux->getFirstChild(),NULL);
+		Node *nuevo = new Node (aux->element(),aux->firstChild(),NULL);
 		hijo.raiz=retornarCopia(nuevo);
 	}
 	return(hijo);
@@ -75,16 +75,16 @@ void DOM_Tree::appendChild(int p, DOM_Tree hijo)
 	int posicion;
 	Node *aux;
 	posicion =1;
-	aux=this->raiz->getFirstChild();
+	aux=this->raiz->firstChild();
 	while(aux!=NULL && posicion<p)
 	{
-		aux=aux->getNextSibling();
-		posicion++:
+		aux=aux->nextSibling();
+		posicion++;
 	}
 	if(posicion==p && aux!=NULL)
 	{
-		hijo.raiz->setNextSibling(aux->getNextSibling());
-		aux->getNextSibling(hijo.raiz);
+		hijo.raiz->setNextSibling(aux->nextSibling());
+		aux->setNextSibling(hijo.raiz);
 	}
 	
 }
@@ -96,16 +96,16 @@ void DOM_Tree::appendChild(int p, string h)
 	DOM_Tree hijo;
 	hijo.convertirEnArbol(h);
 	posicion =1;
-	aux=this->raiz->getFirstChild();
+	aux=this->raiz->firstChild();
 	while(aux!=NULL && posicion<p)
 	{
-		aux=aux->getNextSibling();
-		posicion++:
+		aux=aux->nextSibling();
+		posicion++;
 	}
 	if(posicion==p && aux!=NULL)
 	{
-		hijo.raiz->setNextSibling(aux->getNextSibling());
-		aux->getNextSibling(hijo.raiz);
+		hijo.raiz->setNextSibling(aux->nextSibling());
+		aux->setNextSibling(hijo.raiz);
 	}
 	
 }
@@ -114,15 +114,15 @@ void DOM_Tree::appendChild(DOM_Tree hijo)
 	Node *aux;
 	Node *ptr;
 	
-	ptr=this->raiz->getFirstChild();
+	ptr=this->raiz->firstChild();
 	
 	while(ptr!=NULL)
 	{	
 		aux=ptr;
-		ptr=ptr->getNextSibling();
+		ptr=ptr->nextSibling();
 	}
 	hijo.raiz->setNextSibling(NULL);
-	aux->getNextSibling(hijo.raiz);
+	aux->setNextSibling(hijo.raiz);
 	
 }
 void DOM_Tree::appendChild(string h)
@@ -131,15 +131,15 @@ void DOM_Tree::appendChild(string h)
 	Node *ptr;
 	DOM_Tree hijo;
 	hijo.convertirEnArbol(h);
-	ptr=this->raiz->getFirstChild();
+	ptr=this->raiz->firstChild();
 	
 	while(ptr!=NULL)
 	{	
 		aux=ptr;
-		ptr=ptr->getNextSibling();
+		ptr=ptr->nextSibling();
 	}
 	hijo.raiz->setNextSibling(NULL);
-	aux->getNextSibling(hijo.raiz);
+	aux->setNextSibling(hijo.raiz);
 	
 }
 void DOM_Tree::removeChild(int p)
@@ -149,8 +149,8 @@ void DOM_Tree::removeChild(int p)
 		DOM_Tree eliminar;
 		if(p==1)
 		{
-			eliminar.raiz=this->raiz->getFirstChild();
-			this->raiz->setFirstChild(eliminar.raiz->getNextSibling());
+			eliminar.raiz=this->raiz->firstChild();
+			this->raiz->setFirstChild(eliminar.raiz->nextSibling());
 			eliminar.raiz->setNextSibling(NULL);
 			
 		}
@@ -160,23 +160,23 @@ void DOM_Tree::removeChild(int p)
 			Node *aux,*ptr;
 	
 			posicion =1;
-			ptr=this->raiz->getFirstChild();
+			ptr=this->raiz->firstChild();
 		
 			while(ptr!=NULL && posicion<p)
 			{
 				aux=ptr;
-				ptr=ptr->getNextSibling();
-				posicion++:
+				ptr=ptr->nextSibling();
+				posicion++;
 			}
 			if(posicion==p && ptr!=NULL)
 			{
 				eliminar.raiz=ptr;
-				aux->setNextSibling(eliminar.raiz->getNextSibling());
+				aux->setNextSibling(eliminar.raiz->nextSibling());
 				eliminar.raiz->setNextSibling(NULL);
 				
 			}
 		}
-		eliminar.~DOM_Tree();
+		//eliminar.~DOM_Tree();
 	
 	}
 	
@@ -188,7 +188,7 @@ void DOM_Tree::replaceChild(int p, DOM_Tree reemplazo)
 		DOM_Tree eliminar;
 		if(p==1)
 		{
-			eliminar.raiz=this->raiz->getFirstChild();
+			eliminar.raiz=this->raiz->firstChild();
 			eliminar.raiz->setNextSibling(NULL);
 			this->raiz->setFirstChild(reemplazo.raiz);
 			
@@ -200,42 +200,43 @@ void DOM_Tree::replaceChild(int p, DOM_Tree reemplazo)
 			Node *aux,*ptr;
 	
 			posicion =1;
-			ptr=this->raiz->getFirstChild();
+			ptr=this->raiz->firstChild();
 		
 			while(ptr!=NULL && posicion<p)
 			{
 				aux=ptr;
-				ptr=ptr->getNextSibling();
-				posicion++:
+				ptr=ptr->nextSibling();
+				posicion++;
 			}
 			if(posicion==p && ptr!=NULL)
 			{
 				eliminar.raiz=ptr;
 				aux->setNextSibling(reemplazo.raiz);
-				reemplazo.raiz->setNextSibling(eliminar.raiz->getNextSibling());
+				reemplazo.raiz->setNextSibling(eliminar.raiz->nextSibling());
 				eliminar.raiz->setNextSibling(NULL);
 				
 			}
 		}
-		eliminar.~DOM_Tree();
+	//	eliminar.~DOM_Tree();
 	
 	}
 	
 }
 DOM_Tree DOM_Tree::getElementByID(Element id)
 {
-	Node *aux;
-	DOM_Tree hijo_id;
-	aux=this->this->raiz->getFirstChild();
-	while(aux!= NULL && aux->getElement()!=id)
+	//Node *aux;
+	DOM_Tree hijo_id;/*
+	aux=this->this->raiz->firstChild();
+	while(aux!= NULL && aux->element()!=id)
 	{
-		aux=aux->getNextSibling();
+		aux=aux->nextSibling();
 	}
 	if(aux!= NULL)
 	{
-		Node *nuevo=new(aux->getElement(),aux->getFirstChild(),NULL)
+		Node *nuevo=new(aux->element(),aux->firstChild(),NULL)
 		hijo_id.raiz=retornarCopia(nuevo);
 	}
+	return(hijo_id);*/
 	return(hijo_id);
 }
 DOM_Tree::~DOM_Tree()
@@ -248,12 +249,32 @@ void DOM_Tree::destruir(Node *p)
 	if(p!= NULL)
 	{
 
-				destruir(p->getFirstChild());
-				destruir(p->getNextSibling());
+				destruir(p->firstChild());
+				destruir(p->nextSibling());
 				delete p;
 	}
 }
 
-void DOM_Tree::convertirEnArbol(strin h){
-	Node *p;
+void DOM_Tree::operator=(const DOM_Tree &fuente){
+	
+		this->retornarCopia(fuente.raiz);
+	
+}
+
+void DOM_Tree::convertirEnArbol(string h){
+	Node *nuevo;
+	int pos1,pos2;
+	Element e;
+	
+	
+	/*std::size_t pos1 = h.find("<");
+	std::size_t pos2 = h.find("<");
+	
+	std::string aux = h.substr(pos+1,pos-1);
+	std::size_t pos1 = aux(" ");
+	nuevo = new Node()
+	
+	
+*/
+	
 }

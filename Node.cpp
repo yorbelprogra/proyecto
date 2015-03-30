@@ -4,24 +4,24 @@
  *  Created on: 27/3/2015
  *      Author: yorbel y samuel
  */
+ 
+ 
 #include "Node.h"
-Node::Node(const Node &fuente)
+
+
+
+
+Element Node::element()const
 {
-	e=fuente.getElement();
-	firstChild=fuente.getFirstChild();
-	nextSibling=fuente.getNextSibling();
+	return(this->e);
 }
-Element Node::getElement()
+Node* Node::firstChild()const
 {
-	return(Element);
+	return(firstBorn);
 }
-Node* Node::getFirstChild()
+Node* Node::nextSibling()const
 {
-	return(firstChild);
-}
-Node* Node::getNextSibling()
-{
-	return(nextSibling);
+	return(rightBro);
 }
 void Node::setElement(Element e_)
 {
@@ -29,15 +29,15 @@ void Node::setElement(Element e_)
 }
 void Node::setFirstChild(Node *fc)
 {
-	firstChild=fc;
+	//firstBorn=fc;
 }
 void Node::setNextSibling(Node *ns)
 {
-	nextSibling=ns;
+	//rightBro=ns;
 }
 void Node::operator=(const Node &fuente )
 {
-	e=fuente.getElement();
-	firstChild=fuente.getFirstChild();
-	nextSibling=fuente.getNextSibling();
+	e=fuente.element();
+	firstBorn=fuente.firstChild();
+	rightBro=fuente.nextSibling();
 }

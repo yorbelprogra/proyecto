@@ -11,27 +11,30 @@
 #include <string>
 #include <list>
 using namespace std;
+using std::list;
+using std::string;
+
 class Element
 {
 	private:
-		string tagName;
-		list<string> attrList;
-		string innerHTML;
+		//Atributos
+		string TagName;
+		list<string> AttrList;
+		string InnerHTML;
+	
 	public:
-		Element(string tagName_,list<string> attrLisList_, string innerHTML_ ):tagName(tagName_),attrList(attrList),innerHTML(innerHTML){}
-		Element(string tagName_ ):tagName(tagName_),attrList(),innerHTML(){}
+		//Metodos
+		Element():TagName(string()),AttrList(list<string>()),InnerHTML(string()){}
+		Element(string tagName_ ):TagName(tagName_),AttrList(),InnerHTML(){}
+		Element(string tagName_,list<string> attrList_, string innerHTML_ ):TagName(tagName_),AttrList(attrList_),InnerHTML(innerHTML_){}
 		Element(const Element &fuente);
-		string getTagName()const;
-		list<string> getAttrList()const;
-		string getInnerHTML()const;
+		string tagName()const;
+		list<string> attrList()const;
+		string innerHTML()const;
 		void setTagName(string tagName_);
 		void setAttrList(list<string> attrList_);
 		void setInnerHTML(string innerHTML_);
 		void operator=(const Element &fuente);
-
-
 };
-
-
 
 #endif /* ELEMENT_H_ */
