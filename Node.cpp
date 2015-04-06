@@ -29,11 +29,11 @@ void Node::setElement(Element e_)
 }
 void Node::setFirstChild(Node *fc)
 {
-	//firstBorn=fc;
+	firstBorn=fc;
 }
 void Node::setNextSibling(Node *ns)
 {
-	//rightBro=ns;
+	rightBro=ns;
 }
 void Node::operator=(const Node &fuente )
 {
