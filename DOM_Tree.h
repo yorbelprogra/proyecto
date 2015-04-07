@@ -22,7 +22,7 @@ class DOM_Tree
 		Node* retornarCopia(Node *p)const;
 		void destruir(Node *p);
 		void esCerrado(string &h,string &aux,int &pos1,int &pos2 , bool &band);
-		void buscar(string h , Node* ptrRaiz,Node**);
+		void buscar(string h , Node* ptrRaiz,Node** hermano);
 		void imprimirArbol(Node*  , int );
 	public:
 		void convertirEnArbol(string h);
@@ -39,6 +39,8 @@ class DOM_Tree
 		DOM_Tree getElementByID(Element id);
 		void operator=(const DOM_Tree &fuente);
 		void imprimir(int);
+		friend std::ostream& operator<<(ostream& salida,const DOM_Tree& D);
+	//	friend std::ostream& operator<<(ostream& salida,const Node** ptrRaiz);
 		~DOM_Tree();
 };
 

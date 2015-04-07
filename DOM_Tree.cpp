@@ -92,11 +92,11 @@ void DOM_Tree::appendChild(int p, DOM_Tree hijo)
 void DOM_Tree::appendChild(int p, string h)
 {
 	
-//	int posicion;
-//	Node *aux;
-//	DOM_Tree hijo;std::cout<<1<<std::endl;
-//	hijo.convertirEnArbol(h);
-/*	posicion =1;
+	int posicion;
+	Node *aux;
+	DOM_Tree hijo;std::cout<<1<<std::endl;
+	hijo.convertirEnArbol(h);
+	posicion =1;
 	aux=this->raiz->firstChild();
 	while(aux!=NULL && posicion<p)
 	{
@@ -107,7 +107,7 @@ void DOM_Tree::appendChild(int p, string h)
 	{
 		hijo.raiz->setNextSibling(aux->nextSibling());
 		aux->setNextSibling(hijo.raiz);
-	}*/
+	}
 	
 }
 void DOM_Tree::appendChild(DOM_Tree hijo)
@@ -264,13 +264,13 @@ void DOM_Tree::operator=(const DOM_Tree &fuente){
 
 void DOM_Tree::convertirEnArbol(string h){
 	Node *nuevo,*act;
-	Node **hermano=NULL;
+	Node *hermano=NULL;
 	string aux,name,auxAtributo,inner;
 	int pos1,pos2;
 	bool band,es_hermano=false;
 	list<string> L;
 	Element e;
-	  Element f;
+	  Element f,g;
 
 	pos1 = h.find("<"); pos2 = h.find(">");
 	//cout<<"esta son las pos "<<pos1<<pos2<<endl;
@@ -345,12 +345,15 @@ void DOM_Tree::convertirEnArbol(string h){
 		nuevo = new Node(e);
 		
 		if(es_hermano){
-		//  *hermano->setNextSibling(nuevo);
+		  hermano->setNextSibling(nuevo);
 		  //y me falta colocar que apunte a el
+		  f =hermano->element();
+		  g = hermano->nextSibling()->element();
+		  cout<<"este es mi hermano "<<f.tagName()<<" es el derecho "<<g.tagName()<<endl<<endl;
 		  es_hermano = false;
 		}else{
-		//  f =nuevo->element();
-		//  cout<<" el tag "<<f.tagName()<<endl; 
+		  f =nuevo->element();
+		 cout<<" el tag "<<f.tagName()<<endl; 
 		  act->setFirstChild(nuevo);
 		//  f = act->firstChild()->element();
 		//    cout<<" el  elemento "<<f.tagName()<<endl;
@@ -361,7 +364,7 @@ void DOM_Tree::convertirEnArbol(string h){
 	    }else{
 	      
 		aux = aux.substr(1);
-		// buscar(aux,raiz,hermano);
+		 buscar(aux,raiz,&hermano);
 		es_hermano = true;
 	    }
 	
@@ -385,7 +388,7 @@ void DOM_Tree::esCerrado(string &h,string &aux,int &pos1,int &pos2,bool &band){
     band = false;
   else{
     band =true;
-    aux = aux.substr(1);
+    aux = aux.substr(0);
   }
   h = h.substr(pos2+1);
   
@@ -398,10 +401,10 @@ void DOM_Tree::buscar(string h , Node* ptrRaiz,Node **hermano){
   
   if(ptrRaiz != NULL){
     e =ptrRaiz->element(); 
-    cout<<" tag name "<<e.tagName()<<endl;
+  // cout<<" tag name "<<e.tagName()<<" h "<<h<<endl;
     if(e.tagName()== h){
       *hermano = ptrRaiz;
-      cout<<" 	LO ENCONTRE "<<endl;
+      //cout<<" 	LO ENCONTRE "<<endl;
     }
     aux = ptrRaiz->firstChild();
     while(aux != NULL){
@@ -433,4 +436,32 @@ void DOM_Tree::imprimirArbol(Node *nodoRaiz , int totalEspacios){
       totalEspacios +=5;
       
   }
+}
+
+ostream& operator<<(std::ostream& salida , const DOM_Tree& D ){
+	Element e;
+	list<string> h;
+	DOM_Tree aux;
+	
+	if(D.raiz != NULL){
+		
+		e = D.raiz->element();
+		cout<<"<"<<e.tagName()<<endl;
+		h = e.AttrList();
+	
+		while(! h.empty() ){
+			cout<<" "<<h.front();
+			h.pop_front();
+		}
+		cout<<">";
+		cout<<e.innerHTML;
+		aux = this->getElementByID();
+		while(aux != NULL){
+			return (operator<<(salida , ) );
+			aux = aux->nextSibling();
+			
+		}
+	}
+*/
+
 }
