@@ -1,14 +1,16 @@
-CXX = g++
-CXXFLASGS = -ggdb -Wno-deprecated
 
-OBJETOS = main.o DOM_Tree.o Node.o Element.o
+# Makefile de cola
 
-main: $(OBJETOS)
-	$(CXX) -o $@ $^
-	
-main.o:	main.cpp
-	$(CXX) $(CXXFLASGS) -c -o $@ $^
-	
+# Variables
+CC = g++
+EXE = 
+PRINCIPAL= 
+BOR= $(PRINCIPAL).cpp DOM_Tree.o Node.o Element.o
+# Programa Principal
+all: Element.o Node.o DOM_Tree.o
+	$(CC)  Element.o Node.o DOM_Tree.o $(PRINCIPAL).cpp -o $(EXE)
+
+# Librerías
 DOM_Tree.o: DOM_Tree.cpp DOM_Tree.h
 	$(CXX) $(CXXFLASGS) -c -o $@ $<
 	
@@ -17,3 +19,8 @@ Node.o: Node.cpp Node.h
 
 Element.o: Element.cpp Element.h
 	$(CXX) $(CXXFLASGS) -c -o $@ $<
+
+
+# Borrar los Archivos Objeto y el Ejecutable
+clean:
+	rm -rf *.o $(BOR)

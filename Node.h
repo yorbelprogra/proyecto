@@ -20,7 +20,7 @@ class Node
 	Node():e(Element()),firstBorn(NULL),rightBro(NULL){}
 	Node(Element e_, Node *fc,Node *ns):e(e_),firstBorn(fc),rightBro(ns){}
 	Node(Element e_):e(e_),firstBorn(NULL),rightBro(NULL){}
-	Node(const Node &fuente ){	
+	Node(const Node &fuente ){
 		e = fuente.element();
 		firstBorn = fuente.firstChild();
 		rightBro = fuente.nextSibling();
@@ -34,4 +34,4 @@ class Node
 	void operator=(const Node &fuente );
 };
 
-#endif 
+#endif

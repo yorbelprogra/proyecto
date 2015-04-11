@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <stack>
 using namespace std;
 using std::list;
 using std::string;
@@ -21,7 +22,7 @@ class Element
 		string TagName;
 		list<string> AttrList;
 		string InnerHTML;
-	
+
 	public:
 		//Metodos
 		Element():TagName(string()),AttrList(list<string>()),InnerHTML(string()){}

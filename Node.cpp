@@ -4,11 +4,7 @@
  *  Created on: 27/3/2015
  *      Author: yorbel y samuel
  */
- 
- 
 #include "Node.h"
-
-
 
 
 Element Node::element()const
